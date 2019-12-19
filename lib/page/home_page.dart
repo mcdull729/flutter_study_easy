@@ -13,8 +13,12 @@ class _HomePageState extends State<HomePage> {
         title: Text('首页'),
         centerTitle: true,
       ),
-      body: Center(
-        child: Text('首页的内容'),
+      body: ListView.builder(
+        itemBuilder: (BuildContext context, int index) {
+          return Text('index == ' + index.toString());
+        },
+        itemCount: 20,
+        itemExtent: 30,
       ),
     );
   }

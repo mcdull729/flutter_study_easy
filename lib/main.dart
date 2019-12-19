@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_study3/page/home_page.dart';
+import 'package:flutter_study3/page/message_page.dart';
 
-import 'home_list.dart';
-import 'message_page.dart';
-import 'my_drawer.dart';
-import 'personal_page.dart';
+import 'page/personal_page.dart';
+import 'widget/my_drawer.dart';
 
 void main() => runApp(MyApp());
 
@@ -60,10 +60,8 @@ class _ScaffoldRouteState extends State<ScaffoldRoute> {
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(Icons.home), title: Text("首页")),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.message), title: Text("消息中心")),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.person), title: Text("个人中心")),
+          BottomNavigationBarItem(icon: Icon(Icons.message), title: Text("消息中心")),
+          BottomNavigationBarItem(icon: Icon(Icons.person), title: Text("个人中心")),
         ],
         currentIndex: _selectedIndex,
         fixedColor: Theme.of(context).primaryColor,

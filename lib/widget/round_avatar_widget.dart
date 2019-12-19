@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+///失败…… 待研究
 class RectAvatarWidget extends StatelessWidget {
   final Image avatar;
 
