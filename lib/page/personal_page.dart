@@ -27,7 +27,7 @@ class _PersonalPageState extends State<PersonalPage> {
           ///SliverAppBar可以集成到CustomScrollView中，结合FlexibleSpaceBar实现Material Design中的头部伸缩模型
           SliverAppBar(
             floating: false,
-            title: Text("个人中心"),
+//            title: Text("个人中心"),
             pinned: true,
             //收缩时titlebar是否固定在头部
             expandedHeight: 200.0,
