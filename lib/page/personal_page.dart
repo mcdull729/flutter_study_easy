@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../model/user_model.dart';
 import 'login_page.dart';
 
-class PersonalPage extends StatefulWidget {
-  @override
-  _PersonalPageState createState() => _PersonalPageState();
-}
-
-class _PersonalPageState extends State<PersonalPage> {
-  var userInfo;
+class PersonalPage extends StatelessWidget {
+//  var userInfo;
   var listTitles = ["我的消息", "我的博客", "阅读记录"];
 
   @override
   Widget build(BuildContext context) {
+    final userModel = Provider.of<UserModel>(context);
     return Scaffold(
 //      appBar: AppBar(
 //        title: Text('个人中心'),
@@ -35,7 +33,7 @@ class _PersonalPageState extends State<PersonalPage> {
             flexibleSpace: InkWell(
               //inkwell 可以实现触摸水波纹效果
               onTap: () {
-                if (userInfo == null) {
+                if (!userModel.isLogin) {
                   Navigator.of(context).push(MaterialPageRoute(builder: (context) {
                     return LoginPage();
                   }));
@@ -45,7 +43,7 @@ class _PersonalPageState extends State<PersonalPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
-                  userInfo == null
+                  userModel.userInfo == null
                       ? ClipOval(
                           child: Image.asset(
                             "assets/imgs/avatar.png",
@@ -67,7 +65,7 @@ class _PersonalPageState extends State<PersonalPage> {
                   Container(
                     margin: EdgeInsets.only(top: 10, bottom: 20),
                     child: Text(
-                      userInfo == null ? "点击头像登录" : userInfo.toString(),
+                      userModel.isLogin ? userModel.userInfo.toString() : "点击头像登录",
                       style: TextStyle(color: Colors.white),
                     ),
                   ),

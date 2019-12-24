@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_study3/page/home_page.dart';
 import 'package:flutter_study3/page/message_page.dart';
+import 'package:provider/provider.dart';
 
+import 'model/user_model.dart';
 import 'page/personal_page.dart';
 import 'widget/my_drawer.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  final userModel = UserModel();
+  runApp(ChangeNotifierProvider.value(
+    value: userModel,
+    child: MyApp(),
+  ));
+}
 
 ///我们要实现一个基础的APP，它包含
 /// 1、导航栏、导航栏右边有个分享按钮，分享按钮可点击
@@ -13,7 +21,6 @@ void main() => runApp(MyApp());
 /// 3、有一个底部导航
 /// 4、右下角有个悬浮按钮
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

@@ -56,15 +56,13 @@ class HttpManager {
     try {
       if (method == 'get') {
         if (params != null && params.isNotEmpty) {
+          print("request method == get");
           response = await dio.get(url, queryParameters: params);
-        } else {
-          response = await dio.get(url);
         }
       } else if (method == "post") {
         if (params != null && params.isNotEmpty) {
+          print("request method == post");
           response = await dio.post(url, data: params);
-        } else {
-          response = await dio.post(url);
         }
       }
     } on DioError catch (error) {
@@ -87,7 +85,7 @@ class HttpManager {
 
 //    String dataStr = json.encode(response.data);
 //    print("data == " + dataStr);
-    final res = json.decode(response.data);
+    var res = json.decode(response.data);
 //    print("decode == " + Base_response.fromJson(res).errMsg);
     Base_response base_response = Base_response.fromJson(res);
 //    print("base_response == $base_response");

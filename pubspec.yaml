@@ -29,6 +29,9 @@ dependencies:
   json_model: #latest version
   build_runner: ^1.0.0
   json_serializable: ^2.0.0
+#  flutter_redux: ^0.6.0
+#  redux: ^4.0.0
+  provider: ^3.0.0+1
 
 dev_dependencies:
   flutter_test:

@@ -1,6 +1,12 @@
+import 'dart:convert';
+
+import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_study3/common/ui_widget_utils.dart';
+import 'package:flutter_study3/net/dio_http.dart';
 import 'package:toast/toast.dart';
+
+import '../models/user_info.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -94,8 +100,26 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void onLogin() {
-    if (_nameCtrl.text != null && _pwdCtrl.text != null && _pwdCtrl.text.length >= 6) {
+    if (_nameCtrl.text.isNotEmpty && _pwdCtrl.text.isNotEmpty && _pwdCtrl.text.length >= 6) {
       debugPrint("去登录");
+      Map<String, dynamic> params = {
+        "actionCode": "A00006",
+        "phone": _nameCtrl.text,
+        "password": md5.convert(utf8.encode(_pwdCtrl.text)).toString(),
+      };
+      User_info userInfo = User_info();
+      userInfo.username = "123";
+      userInfo.userId = "0";
+      HttpManager.getInstance().post("", params, (data) {
+        debugPrint("登录成功 $data");
+
+        ///我们这里使用SharedPreferences来存储用户的信息，
+        ///登录成功，跳回到之前的页面去
+        Navigator.of(context).pop();
+      }, (error) {
+        debugPrint("登录失败 $error");
+//        Navigator.pop(context);
+      });
     } else {
       debugPrint("去登录 showToast");
       Toast.show(
