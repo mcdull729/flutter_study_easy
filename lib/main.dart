@@ -9,10 +9,12 @@ import 'widget/my_drawer.dart';
 
 void main() {
   final userModel = UserModel();
+//  Global.init().then((e) {
   runApp(ChangeNotifierProvider.value(
     value: userModel,
     child: MyApp(),
   ));
+//  });
 }
 
 ///我们要实现一个基础的APP，它包含

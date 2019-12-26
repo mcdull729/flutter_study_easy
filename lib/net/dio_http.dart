@@ -24,6 +24,7 @@ class HttpManager {
     dio.options.baseUrl = "http://app.interface.caiduoduo.com/App.php";
     dio.options.connectTimeout = 5000;
     dio.options.receiveTimeout = 10000;
+    dio.options.contentType = Headers.formUrlEncodedContentType;
     dio.interceptors.add(LogInterceptor(request: true, responseBody: true));
   }
 
@@ -91,7 +92,7 @@ class HttpManager {
 //    print("base_response == $base_response");
 
 //    Map<String, dynamic> dataMap = json.decode(response.data);
-    if (base_response == null || base_response.errCode != 0) {
+    if (base_response == null || base_response.errCode != "Ok") {
       _error(errorCallBack, "错误码：" + base_response.errMsg.toString());
     } else if (suceessCallBack != null) {
       suceessCallBack(base_response);

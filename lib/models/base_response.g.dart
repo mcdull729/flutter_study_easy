@@ -10,7 +10,7 @@ Base_response _$Base_responseFromJson(Map<String, dynamic> json) {
   return Base_response()
     ..errCode = json['errCode'] as String
     ..errMsg = json['errMsg'] as String
-    ..data = json['data'] as String;
+    ..data = json['data'] as Map<String, dynamic>;
 }
 
 Map<String, dynamic> _$Base_responseToJson(Base_response instance) =>

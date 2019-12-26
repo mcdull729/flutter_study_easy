@@ -4,6 +4,7 @@ import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_study3/common/ui_widget_utils.dart';
 import 'package:flutter_study3/net/dio_http.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:toast/toast.dart';
 
 import '../models/user_info.dart';
@@ -99,29 +100,29 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  void onLogin() {
+  onLogin() async {
     if (_nameCtrl.text.isNotEmpty && _pwdCtrl.text.isNotEmpty && _pwdCtrl.text.length >= 6) {
-      debugPrint("去登录");
+      showLoading(context);
       Map<String, dynamic> params = {
         "actionCode": "A00006",
         "phone": _nameCtrl.text,
         "password": md5.convert(utf8.encode(_pwdCtrl.text)).toString(),
       };
-      User_info userInfo = User_info();
-      userInfo.username = "123";
-      userInfo.userId = "0";
-      HttpManager.getInstance().post("", params, (data) {
+
+      HttpManager.getInstance().post("", params, (data) async {
         debugPrint("登录成功 $data");
+        User_info userInfo = User_info.fromJson(data.data);
+        SharedPreferences _sp = await SharedPreferences.getInstance();
+        _sp.setString("userInfo", jsonEncode(userInfo));
+        debugPrint("登录成功 ${userInfo.token}");
 
         ///我们这里使用SharedPreferences来存储用户的信息，
         ///登录成功，跳回到之前的页面去
         Navigator.of(context).pop();
       }, (error) {
         debugPrint("登录失败 $error");
-//        Navigator.pop(context);
       });
     } else {
-      debugPrint("去登录 showToast");
       Toast.show(
         "请验证你的用户名或密码",
         context,
@@ -129,5 +130,9 @@ class _LoginPageState extends State<LoginPage> {
         gravity: Toast.BOTTOM,
       );
     }
+  }
+
+  showLoading(BuildContext context) {
+    return CircularProgressIndicator();
   }
 }
